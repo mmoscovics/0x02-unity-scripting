@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     float moveV;
     public float speed = 10;
 
+    private int score = 0;
+
 
     // Start is called before the first frame update
     void Start()
@@ -25,5 +27,17 @@ public class PlayerController : MonoBehaviour
         Vector3 movement = new Vector3 (moveH, 0.0f, moveV);
 
         rb.AddForce(movement * speed);
+    }
+
+    /// Causes trigger events with player
+    void OnTriggerEnter(Collider other)
+    {
+        /// increments score on pickup
+        if (other.gameObject.CompareTag("Pickup"))
+        {
+            other.gameObject.SetActive(false);
+            score += 1;
+            Debug.Log($"Score: {score}");
+        }
     }
 }
