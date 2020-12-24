@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,7 +20,19 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
+    // Update is once per frame before render
+    void Update()
+    {
+        if (health == 0)
+        {
+            Debug.Log($"Game Over!");
+            health = 5;
+            score = 0;
+            SceneManager.LoadScene("maze");
+        }
+    }
+
+    // FixedUpdate is called once per frame before physics
     void FixedUpdate()
     {
         moveH = Input.GetAxis("Horizontal");
