@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     float moveH;
     float moveV;
     public float speed = 10;
+    public int health = 5;
 
     private int score = 0;
 
@@ -32,12 +33,18 @@ public class PlayerController : MonoBehaviour
     /// Causes trigger events with player
     void OnTriggerEnter(Collider other)
     {
-        /// increments score on pickup
+        /// increments score on pickup collision
         if (other.gameObject.CompareTag("Pickup"))
         {
             other.gameObject.SetActive(false);
             score += 1;
             Debug.Log($"Score: {score}");
+        }
+        /// decrements health on trap collision
+        if (other.gameObject.CompareTag("Trap"))
+        {
+            health -= 1;
+            Debug.Log($"Health: {health}");
         }
     }
 }
